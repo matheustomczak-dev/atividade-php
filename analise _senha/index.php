@@ -1,4 +1,3 @@
-```php
 <?php
 
 function maiusculas($senha) {
@@ -105,4 +104,4 @@ echo "Tamanho: " . $resultado["Tamanho"] . "<br>";
 echo "Segurança: " . $resultado["Segurança"];
 
 ?>
-```
+

@@ -1,7 +1,6 @@
-```php
 <?php
 
-function pacientesDiferentes($agenda) {
+function contarPacientes($agenda) {
     $pacientes = array();
 
     foreach ($agenda as $consulta) {
@@ -17,12 +16,12 @@ function contarEspecialidades($agenda) {
     $especialidades = array();
 
     foreach ($agenda as $consulta) {
-        $nome = $consulta["especialidade"];
+        $especialidade = $consulta["especialidade"];
 
-        if (isset($especialidades[$nome])) {
-            $especialidades[$nome]++;
+        if (isset($especialidades[$especialidade])) {
+            $especialidades[$especialidade]++;
         } else {
-            $especialidades[$nome] = 1;
+            $especialidades[$especialidade] = 1;
         }
     }
 
@@ -32,10 +31,11 @@ function contarEspecialidades($agenda) {
 function ordenarAgenda($agenda) {
     for ($i = 0; $i < count($agenda); $i++) {
         for ($j = $i + 1; $j < count($agenda); $j++) {
+
             if ($agenda[$i]["horario"] > $agenda[$j]["horario"]) {
-                $temp = $agenda[$i];
+                $troca = $agenda[$i];
                 $agenda[$i] = $agenda[$j];
-                $agenda[$j] = $temp;
+                $agenda[$j] = $troca;
             }
         }
     }
@@ -55,7 +55,7 @@ function pesquisarPaciente($agenda, $nome) {
     return $resultado;
 }
 
-function horariosDuplicados($agenda) {
+function verificarHorario($agenda) {
     $horarios = array();
 
     foreach ($agenda as $consulta) {
@@ -74,12 +74,12 @@ function organizarAgenda($agenda) {
 
     return array(
         "total" => count($agenda),
-        "pacientes" => pacientesDiferentes($agenda),
+        "pacientes" => contarPacientes($agenda),
         "especialidades" => contarEspecialidades($agenda),
         "primeiro" => $agenda[0],
         "ultimo" => $agenda[count($agenda) - 1],
         "agenda" => $agenda,
-        "duplicados" => horariosDuplicados($agenda)
+        "duplicados" => verificarHorario($agenda)
     );
 }
 
@@ -90,12 +90,10 @@ $agenda = array(
 );
 
 $resultado = organizarAgenda($agenda);
-$pesquisa = pesquisarPaciente($agenda, "João");
 
 echo "Total: " . $resultado["total"] . "<br>";
 echo "Pacientes diferentes: " . $resultado["pacientes"] . "<br>";
-echo "Primeiro: " . $resultado["primeiro"]["horario"] . "<br>";
-echo "Último: " . $resultado["ultimo"]["horario"] . "<br>";
+echo "Primeiro horário: " . $resultado["primeiro"]["horario"] . "<br>";
+echo "Último horário: " . $resultado["ultimo"]["horario"] . "<br>";
 
 ?>
-```

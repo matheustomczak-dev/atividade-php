@@ -1,9 +1,9 @@
-
 <?php
 
 function separarPalavras($texto) {
     $texto = trim($texto);
     $texto = preg_replace('/\s+/', ' ', $texto);
+
     return explode(" ", $texto);
 }
 
@@ -12,16 +12,20 @@ function contarCaracteres($texto) {
 }
 
 function contarPalavras($texto) {
-    return count(separarPalavras($texto));
+    $palavras = separarPalavras($texto);
+
+    return count($palavras);
 }
 
 function contarFrases($texto) {
     $frases = preg_split('/[.!?]+/', $texto);
+
     return count(array_filter($frases));
 }
 
 function maiorMenorPalavra($texto) {
     $palavras = separarPalavras($texto);
+
     $maior = $palavras[0];
     $menor = $palavras[0];
 
@@ -39,11 +43,13 @@ function maiorMenorPalavra($texto) {
 }
 
 function processarTexto($texto) {
+
     $texto = trim($texto);
     $texto = preg_replace('/\s+/', ' ', $texto);
 
     $palavras = separarPalavras($texto);
     $contagem = array_count_values($palavras);
+
     $maiorMenor = maiorMenorPalavra($texto);
 
     $repetidas = 0;
@@ -83,4 +89,3 @@ echo "Texto sem espaços duplicados: " . $resultado["semEspacos"] . "<br>";
 echo "Texto formatado: " . $resultado["formatado"] . "<br>";
 
 ?>
-
